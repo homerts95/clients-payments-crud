@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\ClientRepositoryInterface;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ClientService
 {
@@ -35,6 +36,11 @@ class ClientService
     public function find($id)
     {
         return $this->clientRepository->find($id);
+    }
+
+    public function paginated(int $perPage = 10): LengthAwarePaginator
+    {
+        return $this->clientRepository->paginated($perPage);
     }
 
 }

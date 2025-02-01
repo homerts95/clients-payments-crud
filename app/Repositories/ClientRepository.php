@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Client;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ClientRepository implements ClientRepositoryInterface
 {
@@ -33,5 +34,10 @@ class ClientRepository implements ClientRepositoryInterface
     public function find($id)
     {
         return Client::findOrFail($id);
+    }
+
+    public function paginated(int $perPage = 10): LengthAwarePaginator
+    {
+        return Client::paginate($perPage);
     }
 }

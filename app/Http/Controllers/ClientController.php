@@ -19,7 +19,8 @@ class ClientController extends Controller
      */
     public function index(): View
     {
-        $clients = $this->clientService->all();
+        $clients = $this->clientService->paginated(5);
+
         return view('clients.index', compact('clients'));
     }
 
