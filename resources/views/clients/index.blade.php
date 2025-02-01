@@ -1,3 +1,7 @@
 <x-layouts.base>
-implement me
+
+    <x-list
+            :items="$clients"
+            type="clients"
+    />
 </x-layouts.base>
