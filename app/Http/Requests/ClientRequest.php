@@ -23,8 +23,8 @@ class ClientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            Client::NAME => ['required', 'string', 'max:255'],
-            Client::SURNAME => ['required', 'string', 'max:255']
+            Client::NAME => ['required', 'string', 'max:255', 'regex:/^[\p{L}\s-]+$/u'], //regex to sanitize input to prevent xss
+            Client::SURNAME => ['required', 'string', 'max:255', 'regex:/^[\p{L}\s-]+$/u'] //regex to sanitize input to prevent xss
         ];
     }
 }
