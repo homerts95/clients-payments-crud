@@ -2,6 +2,6 @@
 
 use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
-Route::resource('/', ClientController::class);
+Route::resource('/clients', ClientController::class);
 
 
