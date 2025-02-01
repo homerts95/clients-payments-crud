@@ -26,12 +26,12 @@
 ])
 
 @php
-/** @var  $type */
-/** @var  $config */
-    $currentConfig = $config[$type];
-    $title = $currentConfig['title'];
-    $routes = $currentConfig['routes'];
-    $sections = $currentConfig['sections'];
+    /** @var  $type */
+    /** @var  $config */
+        $currentConfig = $config[$type];
+        $title = $currentConfig['title'];
+        $routes = $currentConfig['routes'];
+        $sections = $currentConfig['sections'];
 @endphp
 
 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -72,6 +72,10 @@
 
                     <div class="px-4 py-5 sm:p-6">
 
+                        @foreach($section['fields'] as $field)
+                            <span>{{$field['label']}} : {{$item[$field['key']]}}</span>
+                            <br>
+                        @endforeach
                     </div>
                 </div>
             @endforeach
