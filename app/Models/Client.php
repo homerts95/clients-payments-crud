@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Client extends Model
 {
@@ -21,4 +22,10 @@ class Client extends Model
         self::CREATED_AT => 'datetime',
         self::UPDATED_AT => 'datetime',
     ];
+
+
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payment::class);
+    }
 }
