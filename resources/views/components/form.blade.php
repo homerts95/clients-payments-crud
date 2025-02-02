@@ -1,4 +1,4 @@
-
+@php use App\Models\Client; @endphp
 @props([
     'item' => $item ?? null,
     'type' => $type,
@@ -25,6 +25,30 @@
                     'type' => 'text',
                     'required' => true,
                     'placeholder' => 'Enter surname'
+                ]
+            ]
+        ],
+        'payments' => [
+            'title' => 'Payment',
+            'routes' => [
+                'store' => 'payments.store',
+                'update' => 'payments.update',
+                'index' => 'payments.index'
+            ],
+            'fields' => [
+                [
+                    'name' => 'client_id',
+                    'label' => 'Client',
+                    'type' => 'select',
+                    'required' => true,
+                    'placeholder' => ''
+                ],
+                [
+                    'name' => 'amount',
+                    'label' => 'Amount',
+                    'type' => 'number',
+                    'required' => true,
+                    'placeholder' => 'Enter amounts'
                 ]
             ]
         ],
@@ -81,15 +105,46 @@
                             <span class="text-red-500">*</span>
                         @endif
                     </label>
+                    @switch($field['type'])
+                        @case('select')
+                            <select id="{{ $fieldName }}"
+                                    name="{{ $fieldName }}"
+                                    class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm
+                       @error($fieldName) border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-500 @enderror"
+                                    @if($field['required']) required @endif>
+                                <option value="">Select {{ $field['label'] }}</option>
+                                @foreach(Client::all() as $client)
+                                    <option value="{{ $client->id }}"
+                                        @selected(old($fieldName, data_get($item, $fieldName)) == $client->id)>
+                                        {{ $client->name }} {{ $client->surname }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @break
 
-                    <input type="{{ $field['type'] }}"
-                           id="{{ $fieldName }}"
-                           name="{{ $fieldName }}"
-                           value="{{ $fieldValue }}"
-                           class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm
-                                          @error($fieldName) border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-500 @enderror"
-                           placeholder="{{ $field['placeholder'] ?? '' }}"
-                           @if($field['required']) required @endif>
+                        @case('number')
+                            <input type="number"
+                                   id="{{ $fieldName }}"
+                                   name="{{ $fieldName }}"
+                                   value="{{ $fieldValue }}"
+                                   step="0.01"
+                                   min="0"
+                                   class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm
+                      @error($fieldName) border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-500 @enderror"
+                                   placeholder="{{ $field['placeholder'] ?? '' }}"
+                                   @if($field['required']) required @endif>
+                            @break
+
+                        @default
+                            <input type="{{ $field['type'] }}"
+                                   id="{{ $fieldName }}"
+                                   name="{{ $fieldName }}"
+                                   value="{{ $fieldValue }}"
+                                   class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm
+                      @error($fieldName) border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-500 @enderror"
+                                   placeholder="{{ $field['placeholder'] ?? '' }}"
+                                   @if($field['required']) required @endif>
+                    @endswitch
 
                     @error($fieldName)
                     <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
