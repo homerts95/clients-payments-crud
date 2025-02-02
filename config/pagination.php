@@ -2,7 +2,7 @@
 
 return [
     'per_page' => [
-        'clients' => 10,
+        'clients' => 5,
     ]
 ];
 
