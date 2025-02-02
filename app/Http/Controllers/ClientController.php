@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ClientFilterRequest;
 use App\Http\Requests\ClientRequest;
 use App\Services\Client\ClientService;
 use Illuminate\Contracts\View\View;
@@ -17,9 +18,11 @@ class ClientController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index(ClientFilterRequest $request): View
     {
-        $clients = $this->clientService->paginated();
+        $clients = $this->clientService->paginated(
+            filters: $request->filters()
+        );
 
         return view('clients.index', compact('clients'));
     }

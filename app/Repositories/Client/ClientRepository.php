@@ -4,6 +4,7 @@ namespace App\Repositories\Client;
 
 use App\Models\Client;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class ClientRepository implements ClientRepositoryInterface
@@ -36,8 +37,31 @@ class ClientRepository implements ClientRepositoryInterface
         return Client::findOrFail($id);
     }
 
-    public function paginated(int $perPage = 10): LengthAwarePaginator
+    public function paginated(int $perPage = 10, array $filters = []): LengthAwarePaginator
     {
-        return Client::paginate($perPage);
+        $query = Client::query();
+
+        $this->applyDateRangeFilter(
+            query: $query,
+            fromDate: $filters['date_from'] ?? null,
+            toDate: $filters['date_to'] ?? null
+        );
+
+        return $query->paginate($perPage)->withQueryString();
+    }
+
+    protected function applyDateRangeFilter(
+        Builder $query,
+        ?string $fromDate,
+        ?string $toDate,
+        string $field = 'created_at'
+    ): void {
+        if ($fromDate) {
+            $query->whereDate($field, '>=', $fromDate);
+        }
+
+        if ($toDate) {
+            $query->whereDate($field, '<=', $toDate);
+        }
     }
 }

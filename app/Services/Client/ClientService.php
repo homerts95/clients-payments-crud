@@ -38,10 +38,10 @@ class ClientService
         return $this->clientRepository->find($id);
     }
 
-    public function paginated(int $perPage = null): LengthAwarePaginator
+    public function paginated(int $perPage = null, array $filters = []): LengthAwarePaginator
     {
         $perPage ??= config('pagination.per_page.clients');
-        return $this->clientRepository->paginated($perPage);
+        return $this->clientRepository->paginated($perPage, $filters);
     }
 
 }
