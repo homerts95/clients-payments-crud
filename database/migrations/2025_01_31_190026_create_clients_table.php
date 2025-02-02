@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string(Client::NAME,255);
             $table->string(Client::SURNAME, 255);
             $table->timestamps();
+            $table->index( 'created_at');
         });
     }
 
