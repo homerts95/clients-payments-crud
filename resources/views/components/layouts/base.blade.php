@@ -36,9 +36,12 @@
 
                 <nav class="-mx-3 flex flex-1 justify-start">
 
-                    <a href="/"
-                       class="px-3 py-2 mr-2 rounded-md text-sm font-medium {{ request()->routeIs('/') ? 'bg-gray-900 text-white' : 'text-gray-500 hover:text-gray-700 dark:hover:text-white/70' }}">
+                    <a href="{{route('clients.index')}}" class="px-3 py-2 mr-2 rounded-md text-sm font-medium {{ request()->routeIs('clients.index') ? 'bg-gray-900 text-white' : 'text-gray-500 hover:text-gray-700 dark:hover:text-white/70' }}">
                         Clients
+                    </a>
+                    <a href="{{route('payments.index')}}"
+                       class="px-3 py-2 mr-2 rounded-md text-sm font-medium {{ request()->routeIs('payments.index') ? 'bg-gray-900 text-white' : 'text-gray-500 hover:text-gray-700 dark:hover:text-white/70' }}">
+                        Payments
                     </a>
                 </nav>
 
