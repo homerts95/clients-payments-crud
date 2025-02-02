@@ -18,6 +18,9 @@
                 ['key' => 'name', 'label' => 'Name'],
                 ['key' => 'surname', 'label' => 'Surname'],
                 ['key' => 'created_at', 'label' => 'Created At']
+            ],
+            'filters' => [
+                ['type' => 'date', 'field' => 'created_at', 'label' => 'Registration Date']
             ]
         ],
          'payments' => [
@@ -107,6 +110,44 @@
                 </div>
             </div>
         @endif
+
+        <div class="mt-4">
+            <form action="{{ route($routes['index']) }}" method="GET" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    @if($type === 'clients')
+                        <div class="space-y-2">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                Registration Date Range
+                            </label>
+                            <div class="flex space-x-2">
+                                <input type="date"
+                                       name="date_from"
+                                       value="{{ request('date_from') }}"
+                                       class="block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                       placeholder="From">
+                                <input type="date"
+                                       name="date_to"
+                                       value="{{ request('date_to') }}"
+                                       class="block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                       placeholder="To">
+                            </div>
+                        </div>
+                        <div class="flex justify-end space-x-2">
+                            <a href="{{ route($routes['index']) }}"
+                               class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                Reset
+                            </a>
+                            <button type="submit"
+                                    class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                Apply Filters
+                            </button>
+                        </div>
+                    @endif
+                </div>
+
+
+            </form>
+        </div>
 
         <div class="mt-8 flow-root">
             <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
