@@ -20,6 +20,22 @@
                 ['key' => 'created_at', 'label' => 'Created At']
             ]
         ],
+         'payments' => [
+            'title' => 'Payments',
+            'singular' => 'Payment',
+            'routes' => [
+                'index' => 'payments.index',
+                'create' => 'payments.create',
+                'edit' => 'payments.edit',
+                'destroy' => 'payments.destroy',
+                'show' => 'payments.show'
+            ],
+            'columns' => [
+                ['key' => 'client.name', 'label' => 'Name'],
+                ['key' => 'client.surname', 'label' => 'Surname'],
+                ['key' => 'amount', 'label' => 'Amount']
+            ]
+        ],
     ]
 ])
 
