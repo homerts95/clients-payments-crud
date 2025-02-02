@@ -39,6 +39,6 @@ class PaymentRepository implements PaymentRepositoryInterface
 
     public function paginated(int $perPage = 10): LengthAwarePaginator
     {
-        return Payment::paginate($perPage);
+        return Payment::with('client')->paginate($perPage);
     }
 }
