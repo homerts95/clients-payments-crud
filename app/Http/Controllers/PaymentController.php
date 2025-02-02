@@ -75,7 +75,6 @@ class PaymentController extends Controller
      */
     public function destroy($id): RedirectResponse
     {
-        //todo cascade
         $this->paymentService->delete($id);
 
         return redirect()->route('payments.index');
