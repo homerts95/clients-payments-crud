@@ -40,7 +40,7 @@ class PaymentService
 
     public function paginated(int $perPage = null): LengthAwarePaginator
     {
-        $perPage ??= config('pagination.per_page.clients');
+        $perPage ??= config('pagination.per_page.payments');
         return $this->clientRepository->paginated($perPage);
     }
 
