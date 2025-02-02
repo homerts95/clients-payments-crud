@@ -23,6 +23,15 @@ class Client extends Model
         self::UPDATED_AT => 'datetime',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function($client) {
+            $client->payments()->delete();
+        });
+    }
+
 
     public function payments(): HasMany
     {
